@@ -65,6 +65,7 @@
 
       $handle = fopen($path, 'w');
       fwrite($handle, $text);
+      fclose($handle);
     }
 
     private function getValuePrepared($value)
