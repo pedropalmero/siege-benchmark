@@ -20,9 +20,17 @@ class Runner
 
   protected function getBashCommand()
   {
-    $command = strtr('siege --rc={config} {url}', array(
+    $logPath = sprintf('/tmp/%s.log', md5($this->url));
+
+    if (is_file($logPath))
+    {
+      unlink($logPath);
+    }
+
+    $command = strtr('siege --rc={config} --log={log} {url}', array(
       '{config}'    => $this->configPath,
-      '{url}'       => $this->url
+      '{url}'       => $this->url,
+      '{log}'       => $logPath
     ));
 
     return $command;
